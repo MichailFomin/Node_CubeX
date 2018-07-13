@@ -1,0 +1,10 @@
+<% include blocks/header.ejs %>
+    <h1> <%= obj.title %> <%= obj.name %></h1>
+    <p><%= newParam %></p>
+    <ul>
+        <% obj.descriptions.forEach(function(item) { %>
+        <li> <%= item %> </li>
+
+        <% }); %>
+    </ul>
+<% include blocks/footer.ejs %>
