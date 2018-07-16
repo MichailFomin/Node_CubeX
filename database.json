@@ -1,0 +1,17 @@
+{
+  "prod": {
+    "driver": "mysql",
+    "database": "node_cubex",
+    "user": "user",
+    "password": "password",
+    "multipleStatements": true
+  },
+
+  "dev": {
+    "driver": "mysql",
+    "database": "node_cubex",
+    "user": "user",
+    "password": "password",
+    "multipleStatements": true
+  }
+}
