@@ -1,6 +1,7 @@
 var express=require('express');
 var router=express.Router();
-
+var bcrypt=require('bcryptjs');
+var User=require('../db/user');
 //registration
 router.get('/registration',function (req,res) {//маршрутизация на registration
     res.render('registration');
@@ -31,9 +32,30 @@ router.post('/registration',function (req,res) {//маршрутизация н�
         });
     }
     else{
-        //console.log('passed');
+        let user = new User();
+        user.name =  req.body.name;
+        user.email =  req.body.email;
+        user.password =  req.body.password;
+        user.role='user';
+        var hash = bcrypt.hashSync(user.password, 10);
+        user.password=hash;
+        user.save();
+        req.flash('success_msg', "You ar registered");
+        res.redirect('/login');
+
+
     }
 });
+
+
+router.post('/login', function(req, res, next){ //маршрутизация на login
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true
+    })(req, res,next);
+});
+
 
 module.exports = router;
 

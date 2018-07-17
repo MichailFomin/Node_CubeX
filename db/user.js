@@ -1,19 +1,25 @@
-const config = require('./sql');
+const Sequelize = require('sequelize');
+const connection = require('./sql');
+var model = require('./sql-model');
 
-// const User = config.Schema('users', {
-//     name: {
-//         type: varchar(255),
-//         required:true
-//     },
-//     email: {
-//         type: varchar(255),
-//         required:true
-//     },
-//     password: {
-//         type: varchar(255),
-//         required:true
-//     }
-//
-// });
+var bcrypt=require('bcryptjs');
 
-//module.exports = User;
+var User = model.define('users', {
+    name: {
+        type: Sequelize.STRING
+    },
+    email: {
+        type: Sequelize.STRING
+    },
+    password: {
+        type: Sequelize.STRING
+    },
+    role: {
+        type: Sequelize.STRING
+    }
+
+}, {timestamps: false});
+
+module.exports = User;
+
+

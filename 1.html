@@ -39,3 +39,29 @@
 <% }) %>
 
 <%}%>
+
+
+<% if(success_msg){%>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="alert alert-danger col-md-5"><%=success_msg %></div>
+    </div>
+
+</div>
+<%}%>
+<% if(error_msg){%>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="alert alert-danger col-md-5"><%=error_msg %></div>
+    </div>
+
+</div>
+<%}%>
+<% if(error){%>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="alert alert-danger col-md-5"><%=error %></div>
+    </div>
+
+</div>
+<%}%>

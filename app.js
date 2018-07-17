@@ -1,4 +1,5 @@
 const connection = require('./db/sql');
+const Sequelize = require('sequelize');
 const passport = require('passport');
 const LocalStrategy=require('passport-local').Strategy;
 //const User = require('./db/user');
@@ -75,14 +76,6 @@ require('./db/passport')(passport);
 
 
 
-
-app.post('/login', function(req, res, next){ //маршрутизация на login
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    })(req, res,next);
-});
 
 
 

@@ -1,14 +1,13 @@
 <% include blocks/header.ejs %>
 <% if(typeof errors == 'object' && errors){%>
-<div class="container">
-    <% errors.forEach(function(errors){ %>
-        <div class="row justify-content-center">
-            <div class="alert alert-danger col-md-5"><%=errors.msg %></div>
-        </div>
-    <% }) %>
-
-</div>
-        <%}%>
+    <div class="container">
+        <% errors.forEach(function(errors){ %>
+            <div class="row justify-content-center">
+                <div class="alert alert-danger col-md-5"><%=errors.msg %></div>
+            </div>
+        <% }) %>
+    </div>
+<%}%>
 <div class="container">
     <div class="row justify-content-center">
         <form class="col-md-5" action="/registration" method="post">
