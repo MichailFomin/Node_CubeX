@@ -20,3 +20,22 @@
 
 </body>
 </html>
+
+<% if(errors) {%>
+<% for(var i=0; i<errors.length;i++) {%>
+<div class="alert alert-danger"><%=msg[i] %></div>
+<%} %>
+<%} %>
+<%- include('user/show', {user: user}); %>
+
+<% errors.forEach(function(errors){ %>
+<div class="alert alert-danger"><%=msg %></div>
+
+<% }); %>
+<% if(errors!== undefined){%>
+
+<% errors.forEach(function(errors){ %>
+<div ><%=errors.msg %></div>
+<% }) %>
+
+<%}%>
