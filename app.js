@@ -1,7 +1,7 @@
 const connection = require('./db/sql');
 const Sequelize = require('sequelize');
-const passport = require('passport');
-const LocalStrategy=require('passport-local').Strategy;
+var passport = require('passport');
+var LocalStrategy=require('passport-local').Strategy;
 //const User = require('./db/user');
 var express=require('express');//подключаем express
 var bodyParser = require('body-parser');//подключаем body-parser
@@ -11,7 +11,7 @@ var session = require('express-session');//session
 var HttpError = require('http-errors');
 var expressValidator = require('express-validator');
 //var exphbs  = require('express-handlebars');
-var flash = require('flash');
+
 
 //routes
 var routes=require('./routes/index');
@@ -54,7 +54,7 @@ app.use(expressValidator({
     }
 }));
 //flash
-app.use(flash());
+app.use(require('flash')());
 app.use(function (req, res, next){
    res.locals.success_msg=req.flash('success_msg');
    res.locals.error_msg=req.flash('error_msg');
@@ -73,11 +73,4 @@ app.use('/public', express.static('public'));//подключаем статич
 require('./db/passport')(passport);
 
 
-
-
-
-
-
-
-
-app.listen(8000);//порт, который слушаем
+app.listen(3300);//порт, который слушаем
