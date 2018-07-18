@@ -1,9 +1,13 @@
 var express=require('express');
 var router=express.Router();
-
+var cookieParser = require('cookie-parser');//подключаем cookie
+var session = require('express-session');//session
 //homepage
 router.get('/',function (req,res) {
-    res.render('index');
+    req.session.user ? res.render('index',{userName:req.session.user}) :
+        res.render('index');
+
+    console.log(req.session.user);
 });
 
 //content

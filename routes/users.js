@@ -2,8 +2,10 @@ var express=require('express');
 var router=express.Router();
 var bcrypt=require('bcryptjs');
 var User=require('../db/user');
-var passport = require('passport');
-var LocalStrategy=require('passport-local').Strategy;
+var cookieParser = require('cookie-parser');//подключаем cookie
+var session = require('express-session');//session
+// var passport = require('passport');
+// var LocalStrategy=require('passport-local').Strategy;
 
 //registration
 router.get('/registration',function (req,res) {//маршрутизация на registration
@@ -13,6 +15,7 @@ router.get('/registration',function (req,res) {//маршрутизация на
 //login
 router.get('/login',function (req,res) {//маршрутизация на login
     res.render('login');
+    //console.log(req.session);
 });
 
 //registration user
@@ -40,7 +43,7 @@ router.post('/registration',function (req,res) { //маршрутизация н
         user.email =  req.body.email;
         user.password =  req.body.password;
         user.role='user';
-       // var hash = bcrypt.hashSync(user.password, 10);
+        var hash = bcrypt.hashSync(user.password, 10);
         user.password=hash;
         user.save();
         req.flash('success_msg', "You ar registered");
@@ -49,7 +52,58 @@ router.post('/registration',function (req,res) { //маршрутизация н
 
     }
 });
-//
+
+router.post('/login', function(req, res) {
+    var email =  req.body.email;
+    var password =  req.body.password;
+
+    req.checkBody('email', 'Email is required').notEmpty();
+    req.checkBody('email', 'Email is not valid').isEmail();
+    req.checkBody('password', 'Password is required').notEmpty();
+    var errors=req.validationErrors();
+    if (errors){
+        res.render('login',{
+            errors:errors
+        });
+    }
+    else{
+        let user = User.findOne({ where:{'email' : req.body.email}}).then(user=>{
+
+            if (typeof user == 'object' && user){
+                if(bcrypt.compareSync(req.body.password, user.password)) {
+                    req.session.user = user.id;
+                    req.session.save();
+                    res.render('index');
+                    //console.log(session);
+
+                }else {
+                    var error=true;
+                    res.render('login',{
+                            error:error
+                        });
+                    console.log(error);
+                }
+
+            }
+            else {res.json({
+                message : 'not successful login'
+            });}
+        });
+       //
+
+
+
+
+    }
+});
+
+router.post('/logout', function(req, res) {
+    req.session.destroy();
+    res.json({
+        message : 'successful logout'
+    });
+});
+
 // passport.use(new LocalStrategy(
 //     function(email, password, done) {
 //         User.getUserByEmail(email, function(err, user) {
@@ -95,38 +149,7 @@ router.post('/registration',function (req,res) { //маршрутизация н
 //     })(req, res,next);
 // });
 
-router.post('/login', function(req, res, next) {
-    var email =  req.body.email;
-    var password =  req.body.password;
 
-    req.checkBody('email', 'Email is required').notEmpty();
-    req.checkBody('email', 'Email is not valid').isEmail();
-    req.checkBody('password', 'Password is required').notEmpty();
-    var errors=req.validationErrors();
-    if (errors){
-        res.render('registration',{
-            errors:errors
-        });
-    }
-    else{
-        // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
-        //     // res == true
-        // });
-
-        var user = User.findOne({ where:{'email' : req.body.email, 'password' : req.body.password}});
-        if (!user) return next(HttpError(403, 'wrong e-mail / password'));
-        console.log(user.id);
-        // req.session.user = user.id;
-        // req.session.save();
-        res.json({
-            message : 'successful login'
-        });
-    }
-
-
-
-
-});
 
 
 module.exports = router;

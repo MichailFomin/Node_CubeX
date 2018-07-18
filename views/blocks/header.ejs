@@ -18,11 +18,16 @@
           <a class="nav-item nav-link" href="/content/1">Content</a>
           <a class="nav-item nav-link" href="#">Admin</a>
         </div>
+      <% if(typeof errors == 'object' && errors){%>
         <div class="navbar-nav right ">
-          <a class="nav-item nav-link active" href="/login">Login</a>
-          <a class="nav-item nav-link " href="/registration">Registration</a>
+           <a class="nav-item nav-link active" href="/login">Login</a>
+           <a class="nav-item nav-link " href="/registration">Registration</a>
         </div>
+      <%} else{%>
+        <div class="navbar-nav right ">
+            <a class="nav-item nav-link active" href="/logout">Logout</a>
+        </div>
+      <%}%>
       </div>
 
     </nav>
-

@@ -1,5 +1,5 @@
-const connection = require('./db/sql');
-const Sequelize = require('sequelize');
+var connection = require('./db/sql');
+var Sequelize = require('sequelize');
 var passport = require('passport');
 var LocalStrategy=require('passport-local').Strategy;
 //const User = require('./db/user');
@@ -24,18 +24,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'secret',
+    secret: 'keyboard cat',
     resave: true,
     saveUninitialized: false,
     cookie: {
-        httpOnly: false,
         secure: false,
         maxAge: 1000000000,
     }
 }));
 //passport
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 //Validator
 app.use(expressValidator({
@@ -73,4 +72,4 @@ app.use('/public', express.static('public'));//подключаем статич
 require('./db/passport')(passport);
 
 
-app.listen(3300);//порт, который слушаем
+app.listen(8000);//порт, который слушаем
