@@ -58,9 +58,6 @@ router.post('/registration',function (req,res) { //маршрутизация н
 
 //login user
 router.post('/login', function(req, res) {
-    var email =  req.body.email;
-    var password =  req.body.password;
-
 
     req.checkBody('email', 'Email is required').notEmpty();
     req.checkBody('email', 'Email is not valid').isEmail();

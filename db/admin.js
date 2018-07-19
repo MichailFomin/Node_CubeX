@@ -14,8 +14,10 @@ var Admin = model.define('content', {
     },
     presence: {
         type: Sequelize.STRING
+    },
+    img: {
+        type: Sequelize.STRING
     }
-
 }, {timestamps: false});
 
 module.exports = Admin;

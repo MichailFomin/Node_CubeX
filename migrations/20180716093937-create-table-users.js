@@ -16,13 +16,14 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
     db.createTable('users', {
-        id: { type: 'int', primaryKey: true },
+        id: { type: 'int', primaryKey: true, autoIncrement: true },
         name: 'string',
-        email: 'string',
+        email: {'string',unique:true},
         password: 'string',
         tocen: 'string',
-        role: 'string'
-
+        role: 'string',
+        createdAt:Sequelize.DATE,
+        updatedAt:Sequelize.DATE
     });
 
 };

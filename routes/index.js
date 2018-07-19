@@ -2,15 +2,22 @@ var express=require('express');
 var router=express.Router();
 var cookieParser = require('cookie-parser');//подключаем cookie
 var session = require('express-session');//session
+var Admin=require('../db/admin');
+var User=require('../db/user');
 var userName=false;
 var userRole=false;
 
 //homepage
 router.get('/',function (req,res) {
-    req.session.user ? res.render('index',{userName:req.session.user,userRole:req.session.role}) :
-        res.render('index',{userName,userRole});
+    var content = Admin.findAll().then(content=> {
+        req.session.user ? res.render('index',{userName:req.session.user,userRole:req.session.role,content: content}) :
+        res.render('index', {
+            content: content,
+            userName,userRole
 
-    console.log(req.session);
+        });
+    });
+
 });
 
 

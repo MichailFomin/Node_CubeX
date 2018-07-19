@@ -37,9 +37,6 @@ app.use(session({
 //     res.render('page404', {userName:req.session.user});
 //     res.render('page404',{userName});
 // });
-//passport
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 //Validator
 app.use(expressValidator({

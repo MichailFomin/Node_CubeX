@@ -1,5 +1,23 @@
 
 <% include blocks/header.ejs %>
 <h1>Home</h1>
-
+<% if(typeof content == 'object' && content){%>
+    <div class="container">
+        <div class="row ">
+        <% content.forEach(function(content){ %>
+           <div class="col-md-5 content">
+               <h3> <%=content.name %></h3>
+               <img src="../public/img/<%=content.img %>" alt="" width="100">
+               <p><%=content.description %></p>
+               <p><%=content.price %>$</p>
+           <% if(userName != false){%>
+               <form   action="/" method="post" >
+                 <input type="submit" class="btn btn-secondary " name='add' value='Add to cart'>
+               </form>
+           <%}%>
+           </div>
+        <% }) %>
+        </div>
+    </div>
+<%}%>
 <% include blocks/footer.ejs %>

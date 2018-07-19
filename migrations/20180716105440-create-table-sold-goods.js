@@ -16,10 +16,12 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
     db.createTable('sold_goods', {
-        id: { type: 'int', primaryKey: true },
+        id: { type: 'int', primaryKey: true, autoIncrement: true },
         content_id: 'int',
         user_id: 'int',
-        date: 'timestamp'
+        date: 'timestamp',
+        createdAt:Sequelize.DATE,
+        updatedAt:Sequelize.DATE
     });
 };
 

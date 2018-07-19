@@ -16,7 +16,7 @@
 <%}%>
 <div class="container">
     <div class="row justify-content-center">
-        <form class="col-md-5" action="/admin" method="post">
+        <form class="col-md-5" action="/admin" method="post" >
           <div class="form-group">
             <label for="ContentName">Name</label>
             <input type="text" name="name" class="form-control" id="ContentName" placeholder="Enter content name">
@@ -28,6 +28,10 @@
           <div class="form-group">
             <label for="ContentPrice">Price</label>
             <input type="text" name="price" class="form-control" id="ContentPrice" placeholder="Price">
+          </div>
+          <div class="form-group">
+            <label for="ContentImg">Images</label>
+            <input type="file" name="img" class="form-control" id="ContentImg">
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

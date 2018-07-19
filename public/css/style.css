@@ -5,3 +5,9 @@ body{
 .right {
     padding-left: 70%;
 }
+.content{
+    margin: 5px;
+    background-color: white;
+    border: solid #f0f0f0;
+    border-radius: 5px;
+}

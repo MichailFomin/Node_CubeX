@@ -16,11 +16,14 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
     db.createTable('contents', {
-        id: { type: 'int', primaryKey: true },
+        id: { type: 'int', primaryKey: true, autoIncrement: true },
         name: 'string',
         description: 'string',
+        img: 'string',
         price: 'float',
-        presence: 'string'
+        presence: 'string',
+        createdAt:Sequelize.DATE,
+        updatedAt:Sequelize.DATE
     });
 
 };
