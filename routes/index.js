@@ -2,13 +2,15 @@ var express=require('express');
 var router=express.Router();
 var cookieParser = require('cookie-parser');//подключаем cookie
 var session = require('express-session');//session
+var userName=false;
 //homepage
 router.get('/',function (req,res) {
     req.session.user ? res.render('index',{userName:req.session.user}) :
-        res.render('index');
+        res.render('index',{userName});
 
     console.log(req.session.user);
 });
+
 
 //content
 router.get('/content/:id', function(req, res){ //просмотр страницы одного товара,поиск по id

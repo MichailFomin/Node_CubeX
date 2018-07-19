@@ -6,15 +6,18 @@ var cookieParser = require('cookie-parser');//подключаем cookie
 var session = require('express-session');//session
 // var passport = require('passport');
 // var LocalStrategy=require('passport-local').Strategy;
-
+var userName=false;
 //registration
 router.get('/registration',function (req,res) {//маршрутизация на registration
-    res.render('registration');
+    req.session.user ? res.render('registration',{userName:req.session.user}) :
+    res.render('registration',{userName});
 });
 
 //login
 router.get('/login',function (req,res) {//маршрутизация на login
-    res.render('login');
+
+    req.session.user ? res.render('login',{userName:req.session.user}) :
+    res.render('login',{userName});
     //console.log(req.session);
 });
 
@@ -73,7 +76,7 @@ router.post('/login', function(req, res) {
                 if(bcrypt.compareSync(req.body.password, user.password)) {
                     req.session.user = user.id;
                     req.session.save();
-                    res.render('index');
+                    res.redirect('/');
                     //console.log(session);
 
                 }else {
@@ -99,9 +102,8 @@ router.post('/login', function(req, res) {
 
 router.post('/logout', function(req, res) {
     req.session.destroy();
-    res.json({
-        message : 'successful logout'
-    });
+    res.redirect('/');
+
 });
 
 // passport.use(new LocalStrategy(

@@ -11,7 +11,7 @@ var session = require('express-session');//session
 var HttpError = require('http-errors');
 var expressValidator = require('express-validator');
 //var exphbs  = require('express-handlebars');
-
+var userName=false;
 
 //routes
 var routes=require('./routes/index');
@@ -32,6 +32,11 @@ app.use(session({
         maxAge: 1000000000,
     }
 }));
+
+// app.get('/?', function(req, res){
+//     res.render('page404', {userName:req.session.user});
+//     res.render('page404',{userName});
+// });
 //passport
 // app.use(passport.initialize());
 // app.use(passport.session());

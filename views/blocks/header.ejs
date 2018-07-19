@@ -18,14 +18,17 @@
           <a class="nav-item nav-link" href="/content/1">Content</a>
           <a class="nav-item nav-link" href="#">Admin</a>
         </div>
-      <% if(typeof errors == 'object' && errors){%>
+      <% if(userName == false){%>
         <div class="navbar-nav right ">
            <a class="nav-item nav-link active" href="/login">Login</a>
            <a class="nav-item nav-link " href="/registration">Registration</a>
         </div>
       <%} else{%>
         <div class="navbar-nav right ">
-            <a class="nav-item nav-link active" href="/logout">Logout</a>
+        <form  class="col-md-5" action="/logout" method="post" >
+            <input type="submit" class="nav-item nav-link " name='logout' value='logout'>
+
+        </form>
         </div>
       <%}%>
       </div>
