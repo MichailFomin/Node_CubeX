@@ -4,21 +4,22 @@ var bcrypt=require('bcryptjs');
 var User=require('../db/user');
 var cookieParser = require('cookie-parser');//подключаем cookie
 var session = require('express-session');//session
-// var passport = require('passport');
-// var LocalStrategy=require('passport-local').Strategy;
+
 var userName=false;
+var userRole=false;
+var errorpas=false;
+var errorlog=false;
+
 //registration
 router.get('/registration',function (req,res) {//маршрутизация на registration
-    req.session.user ? res.render('registration',{userName:req.session.user}) :
-    res.render('registration',{userName});
+    req.session.user ? res.render('registration',{userName:req.session.user,userRole:req.session.role}) :
+    res.render('registration',{userName,userRole});
 });
 
 //login
 router.get('/login',function (req,res) {//маршрутизация на login
-
-    req.session.user ? res.render('login',{userName:req.session.user}) :
-    res.render('login',{userName});
-    //console.log(req.session);
+    req.session.user ? res.render('login',{userName:req.session.user,userRole:req.session.role,errorpas,errorlog}) :
+    res.render('login',{userName,userRole,errorpas,errorlog});
 });
 
 //registration user
@@ -37,7 +38,9 @@ router.post('/registration',function (req,res) { //маршрутизация н
     var errors=req.validationErrors();
     if (errors){
         res.render('registration',{
-            errors:errors
+            errors:errors,
+            userName,
+            userRole
         });
     }
     else{
@@ -49,16 +52,15 @@ router.post('/registration',function (req,res) { //маршрутизация н
         var hash = bcrypt.hashSync(user.password, 10);
         user.password=hash;
         user.save();
-        req.flash('success_msg', "You ar registered");
         res.redirect('/login');
-
-
     }
 });
 
+//login user
 router.post('/login', function(req, res) {
     var email =  req.body.email;
     var password =  req.body.password;
+
 
     req.checkBody('email', 'Email is required').notEmpty();
     req.checkBody('email', 'Email is not valid').isEmail();
@@ -66,7 +68,11 @@ router.post('/login', function(req, res) {
     var errors=req.validationErrors();
     if (errors){
         res.render('login',{
-            errors:errors
+            errors:errors,
+            userName,
+            userRole,
+            errorpas,
+            errorlog
         });
     }
     else{
@@ -74,29 +80,33 @@ router.post('/login', function(req, res) {
 
             if (typeof user == 'object' && user){
                 if(bcrypt.compareSync(req.body.password, user.password)) {
-                    req.session.user = user.id;
+                    req.session.user = user.name;
+                    req.session.role = user.role;
                     req.session.save();
                     res.redirect('/');
-                    //console.log(session);
 
                 }else {
-                    var error=true;
-                    res.render('login',{
-                            error:error
-                        });
-                    console.log(error);
+                    errorpas=true;
+                    errorlog=false;
+                        res.render('login',{
+                        errorpas:errorpas,
+                        userName,
+                        userRole,
+                        errorlog
+                    });
                 }
 
             }
-            else {res.json({
-                message : 'not successful login'
-            });}
+            else {
+                errorlog = true;
+                res.render('login', {
+                    errorlog: errorlog,
+                    userName,
+                    userRole,
+                    errorpas
+                });
+            }
         });
-       //
-
-
-
-
     }
 });
 
@@ -105,54 +115,6 @@ router.post('/logout', function(req, res) {
     res.redirect('/');
 
 });
-
-// passport.use(new LocalStrategy(
-//     function(email, password, done) {
-//         User.getUserByEmail(email, function(err, user) {
-//             console.log(email);
-//             if (err) throw err;
-//             if (!user) {
-//                 return done(null, false, { message: 'Incorrect username.' });
-//             }
-//             User.comparePassword(password, user.password, function (err, isMatch) {
-//                 if (err) throw err;
-//                 if (isMatch){
-//                     return done(null, user);
-//                 } else{
-//                     return done(null, false, {message:'Incorrect password.' })
-//                 }
-//             });
-//         });
-//     }));
-//
-// passport.serializeUser(function(user, done) {
-//     done(null, user.id);
-// });
-//
-// passport.deserializeUser(function(id, done) {
-//     User.getUserById(id, function(err, user) {
-//         done(err, user);
-//     });
-// });
-//
-//
-// router.post('/login',passport.authenticate('local', {successRedirect: '/',failureRedirect: '/login',failureFlash: true}),
-//     function(req, res) {
-//         res.redirect('/');
-//         console.log(req);
-//     });
-
-
-// router.post('/login', function(req, res, next){ //маршрутизация на login
-//     passport.authenticate('local', {
-//         successRedirect: '/',
-//         failureRedirect: '/login',
-//         failureFlash: true
-//     })(req, res,next);
-// });
-
-
-
 
 module.exports = router;
 

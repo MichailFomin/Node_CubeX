@@ -15,18 +15,18 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db) {
-    db.createTable('content', {
+    db.createTable('contents', {
         id: { type: 'int', primaryKey: true },
         name: 'string',
         description: 'string',
-        price: 'double',
+        price: 'float',
         presence: 'string'
     });
 
 };
 
 exports.down = function(db) {
-    db.dropTable('content');
+    db.dropTable('contents');
 };
 
 exports._meta = {

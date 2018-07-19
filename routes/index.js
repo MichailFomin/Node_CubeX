@@ -3,12 +3,14 @@ var router=express.Router();
 var cookieParser = require('cookie-parser');//подключаем cookie
 var session = require('express-session');//session
 var userName=false;
+var userRole=false;
+
 //homepage
 router.get('/',function (req,res) {
-    req.session.user ? res.render('index',{userName:req.session.user}) :
-        res.render('index',{userName});
+    req.session.user ? res.render('index',{userName:req.session.user,userRole:req.session.role}) :
+        res.render('index',{userName,userRole});
 
-    console.log(req.session.user);
+    console.log(req.session);
 });
 
 

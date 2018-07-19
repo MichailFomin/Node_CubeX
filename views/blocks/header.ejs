@@ -16,7 +16,9 @@
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link" href="/content/1">Content</a>
-          <a class="nav-item nav-link" href="#">Admin</a>
+          <% if(userRole == 'admin'){%>
+            <a class="nav-item nav-link" href="/admin">Admin</a>
+          <%}%>
         </div>
       <% if(userName == false){%>
         <div class="navbar-nav right ">
@@ -25,9 +27,9 @@
         </div>
       <%} else{%>
         <div class="navbar-nav right ">
+        <p class="nav-item nav-link active"><%=userName%></p>
         <form  class="col-md-5" action="/logout" method="post" >
             <input type="submit" class="nav-item nav-link " name='logout' value='logout'>
-
         </form>
         </div>
       <%}%>

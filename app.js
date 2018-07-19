@@ -16,7 +16,7 @@ var userName=false;
 //routes
 var routes=require('./routes/index');
 var users=require('./routes/users');
-
+var admin=require('./routes/admin');
 
 var app=express();
 
@@ -68,7 +68,7 @@ app.use(function (req, res, next){
 
 app.use('/', routes);
 app.use('/', users);
-
+app.use('/', admin);
 
 app.set('view engine', 'ejs');//какой шаблонизатор используем
 

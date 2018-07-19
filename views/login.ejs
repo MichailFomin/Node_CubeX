@@ -8,11 +8,20 @@
         <% }) %>
     </div>
 <%}%>
-<% if(error==true){%>
+<% if(errorpas==true){%>
     <div class="container">
 
             <div class="row justify-content-center">
-                <div class="alert alert-danger col-md-5">Password not successful</div>
+                <div class="alert alert-danger col-md-5">Password is not valid</div>
+            </div>
+
+    </div>
+<%}%>
+<% if(errorlog==true){%>
+    <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="alert alert-danger col-md-5">Login is not valid</div>
             </div>
 
     </div>

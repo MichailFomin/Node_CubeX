@@ -1,0 +1,40 @@
+<% include blocks/header.ejs %>
+
+<% if(userRole == false || userRole == 'user'){%>
+<h3>You are not allowed to view this page, sign in as admin</h3>
+
+<%} else{%>
+
+<% if(typeof errors == 'object' && errors){%>
+    <div class="container">
+        <% errors.forEach(function(errors){ %>
+            <div class="row justify-content-center">
+                <div class="alert alert-danger col-md-5"><%=errors.msg %></div>
+            </div>
+        <% }) %>
+    </div>
+<%}%>
+<div class="container">
+    <div class="row justify-content-center">
+        <form class="col-md-5" action="/admin" method="post">
+          <div class="form-group">
+            <label for="ContentName">Name</label>
+            <input type="text" name="name" class="form-control" id="ContentName" placeholder="Enter content name">
+          </div>
+          <div class="form-group">
+              <label for="ContentDescription">Description</label>
+              <input type="textarea" name="description" class="form-control" id="ContentDescription" placeholder="Enter description">
+          </div>
+          <div class="form-group">
+            <label for="ContentPrice">Price</label>
+            <input type="text" name="price" class="form-control" id="ContentPrice" placeholder="Price">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+  <%}%>
+
+<% include blocks/footer.ejs %>
