@@ -18,12 +18,11 @@ exports.up = function(db) {
     db.createTable('users', {
         id: { type: 'int', primaryKey: true, autoIncrement: true },
         name: 'string',
-        email: {'string',unique:true},
+        email: {type:'string',unique:true},
         password: 'string',
         tocen: 'string',
         role: 'string',
-        createdAt:Sequelize.DATE,
-        updatedAt:Sequelize.DATE
+        createdAt:'timestamp'
     });
 
 };

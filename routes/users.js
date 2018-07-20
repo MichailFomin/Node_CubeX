@@ -31,10 +31,12 @@ router.post('/registration',function (req,res) { //маршрутизация н
 
     //validator
     req.checkBody('name', 'Name is required').notEmpty();
+    req.checkBody('name', 'Name maximum length 15 characters').isLength({ max: 15 });
     req.checkBody('email', 'Email is required').notEmpty();
     req.checkBody('email', 'Email is not valid').isEmail();
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password2', 'Password do not match').equals(req.body.password);
+
     var errors=req.validationErrors();
     if (errors){
         res.render('registration',{
@@ -77,6 +79,7 @@ router.post('/login', function(req, res) {
 
             if (typeof user == 'object' && user){
                 if(bcrypt.compareSync(req.body.password, user.password)) {
+                    req.session.user_id = user.id;
                     req.session.user = user.name;
                     req.session.role = user.role;
                     req.session.save();

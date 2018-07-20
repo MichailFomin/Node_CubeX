@@ -73,3 +73,26 @@
 </form>
 <p></p>
 <img src="" alt="" width="">
+<input type="text" hidden name="content_id" value="">
+
+
+<% if(typeof content == 'object' && content){%>
+<div class="container">
+    <div class="row ">
+        <% content.forEach(function(content){ %>
+        <div class="col-md-5 content">
+            <h3> <%=content.name %></h3>
+            <img src="../public/img/<%=content.img %>" alt="" width="100">
+            <p><%=content.description %></p>
+            <p><%=content.price %>$</p>
+            <% if(userName != false){%>
+            <form   action="/" method="post" >
+                <input hidden type="text" name="content_id" value="<%=content.id %>">
+                <input type="submit" class="btn btn-secondary " name='add' value='Add to cart'>
+            </form>
+            <%}%>
+        </div>
+        <% }) %>
+    </div>
+</div>
+<%}%>

@@ -12,5 +12,8 @@ const sequelize = new Sequelize('node_cubex','user','password', {
     },
 });
 
+// db.users = require('../models/users.js')(sequelize, Sequelize);
+// db.contents = require('../models/contents.js')(sequelize, Sequelize);
+// db.sold_goods = require('../models/sold_goods.js')(sequelize, Sequelize);
 
 module.exports = sequelize;

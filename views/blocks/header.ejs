@@ -15,7 +15,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="/content/1">Content</a>
+          <a class="nav-item nav-link" href="/content">Sold content</a>
           <% if(userRole == 'admin'){%>
             <a class="nav-item nav-link" href="/admin">Admin</a>
           <%}%>
@@ -28,6 +28,7 @@
       <%} else{%>
         <div class="navbar-nav right ">
         <p class="nav-item nav-link active"><%=userName%></p>
+        <a class="btn btn-light" href="/cart" style=" height: 38px">Сart</a>
         <form  class="col-md-5" action="/logout" method="post" >
             <input type="submit" class="btn btn-secondary" name='logout' value='logout'>
         </form>

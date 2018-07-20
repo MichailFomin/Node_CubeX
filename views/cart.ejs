@@ -1,0 +1,38 @@
+
+<% include blocks/header.ejs %>
+<h1>Cart</h1>
+<% if(typeof content == 'object' && content){%>
+<div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Description</th>
+          <th scope="col">Price</th>
+          <th scope="col">Delete</th>
+          <th scope="col">Buy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><%=content.name %></th>
+          <td><%=content.description %></td>
+          <td><%=content.price %>$</td>
+          <td>
+            <form   action="/cart/delete" method="post" >
+              <input hidden type="text" name="content_id" value="<%=content.id %>">
+              <input type="submit" class="btn btn-secondary " name='delete' value='delete'>
+            </form>
+          </td>
+          <td>
+          <form   action="/cart/Buy" method="post" >
+            <input hidden type="text" name="content_id" value="<%=content.id %>">
+            <input type="submit" class="btn btn-secondary " name='Buy' value='Buy'>
+          </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<%}%>
+<% include blocks/footer.ejs %>

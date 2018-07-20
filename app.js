@@ -11,6 +11,10 @@ var session = require('express-session');//session
 var HttpError = require('http-errors');
 var expressValidator = require('express-validator');
 //var exphbs  = require('express-handlebars');
+var fs=require('fs');
+var formidable = require('formidable'),
+    http = require('http'),
+    util = require('util');
 var userName=false;
 
 //routes
@@ -74,4 +78,4 @@ app.use('/public', express.static('public'));//подключаем статич
 require('./db/passport')(passport);
 
 
-app.listen(8000);//порт, который слушаем
+app.listen(3500);//порт, который слушаем

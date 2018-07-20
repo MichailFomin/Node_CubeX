@@ -12,6 +12,7 @@
                <p><%=content.price %>$</p>
            <% if(userName != false){%>
                <form   action="/" method="post" >
+                 <input hidden type="text" name="content_id" value="<%=content.id %>">
                  <input type="submit" class="btn btn-secondary " name='add' value='Add to cart'>
                </form>
            <%}%>

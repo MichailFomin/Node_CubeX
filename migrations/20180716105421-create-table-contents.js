@@ -22,8 +22,8 @@ exports.up = function(db) {
         img: 'string',
         price: 'float',
         presence: 'string',
-        createdAt:Sequelize.DATE,
-        updatedAt:Sequelize.DATE
+        createdAt:'timestamp',
+        updatedAt:'date'
     });
 
 };

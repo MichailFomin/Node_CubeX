@@ -19,9 +19,7 @@ exports.up = function(db) {
         id: { type: 'int', primaryKey: true, autoIncrement: true },
         content_id: 'int',
         user_id: 'int',
-        date: 'timestamp',
-        createdAt:Sequelize.DATE,
-        updatedAt:Sequelize.DATE
+        createdAt:'timestamp'
     });
 };
 
