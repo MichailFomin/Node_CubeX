@@ -1,9 +1,11 @@
 var express=require('express');
 var router=express.Router();
 var User=require('../db/user');
+var db = require('../db/db');
+var Admin=require('../db/admin');
 var cookieParser = require('cookie-parser');//подключаем cookie
 var session = require('express-session');//session
-var Admin=require('../db/admin');
+
 var fs=require('fs');
 var bodyParser = require('body-parser');
 var formidable = require('formidable'),
@@ -39,18 +41,25 @@ router.post('/admin',function (req,res) { //маршрутизация на regi
             });
         }
         else{
-            //res.end(util.inspect({fields: fields, files: files}));
-            var name =  fields.name;
-            var description =  fields.description;
-            var price =  fields.price;
-            var img =  files.img.name;
-            let content = new Admin();
-                 content.name =  fields.name;
-                 content.description =  fields.description;
-                 content.price =  fields.price;
-                 content.img =  files.img.name;
-                 content.presence='yes';
-                 content.save();
+          res.end(util.inspect({fields: fields, files: files}));
+          db.contents.create({'name' : fields.name, 
+            'description':fields.description, 
+            'price':fields.price, 'img':files.img.name,'presence':'yes' }).then((contents) => {
+             
+          });
+            //
+            // var name =  fields.name;
+            // var description =  fields.description;
+            // var price =  fields.price;
+            // var img =  files.img.name;
+            // let content = new Admin();
+            // //let user = db.users.findOne
+            //      content.name =  fields.name;
+            //      content.description =  fields.description;
+            //      content.price =  fields.price;
+            //      content.img =  files.img.name;
+            //      content.presence='yes';
+            //      content.save();
             //res.redirect('/');
             // res.render('admin', {
             //

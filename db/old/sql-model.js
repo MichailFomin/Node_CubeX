@@ -1,6 +1,5 @@
-const connection = require('./sql');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize("node_cubex", "user", "password", {
+const sequelize = new Sequelize('node_cubex','user','password', {
     host: 'localhost',
     port: 3306,
     dialect: 'mysql',
@@ -12,5 +11,7 @@ const sequelize = new Sequelize("node_cubex", "user", "password", {
         idle: 10000
     },
 });
+
+ 
 
 module.exports = sequelize;

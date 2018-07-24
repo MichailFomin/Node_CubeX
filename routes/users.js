@@ -2,6 +2,7 @@ var express=require('express');
 var router=express.Router();
 var bcrypt=require('bcryptjs');
 var User=require('../db/user');
+var db = require('../db/db');
 var cookieParser = require('cookie-parser');//подключаем cookie
 var session = require('express-session');//session
 
@@ -46,15 +47,13 @@ router.post('/registration',function (req,res) { //маршрутизация н
         });
     }
     else{
-        let user = new User();
-        user.name =  req.body.name;
-        user.email =  req.body.email;
-        user.password =  req.body.password;
-        user.role='user';
-        var hash = bcrypt.hashSync(user.password, 10);
-        user.password=hash;
-        user.save();
-        res.redirect('/login');
+        var hash = bcrypt.hashSync(req.body.password, 10);
+
+        db.users.create({'email' : req.body.email, 'name':req.body.name, 'role':'user', 'password':hash}).then((users) => {
+             
+        });
+       
+      res.redirect('/login');
     }
 });
 
@@ -75,8 +74,7 @@ router.post('/login', function(req, res) {
         });
     }
     else{
-        let user = User.findOne({ where:{'email' : req.body.email}}).then(user=>{
-
+        let user = db.users.findOne({ where:{'email' : req.body.email}}).then(user=>{
             if (typeof user == 'object' && user){
                 if(bcrypt.compareSync(req.body.password, user.password)) {
                     req.session.user_id = user.id;

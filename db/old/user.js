@@ -1,7 +1,10 @@
 const Sequelize = require('sequelize');
+const connection = require('./sql');
 var model = require('./sql-model');
 
-const User = model.define('users', {
+var bcrypt=require('bcryptjs');
+
+var User = model.define('users', {
     name: {
         type: Sequelize.STRING
     },
@@ -11,7 +14,7 @@ const User = model.define('users', {
     password: {
         type: Sequelize.STRING
     },
-    token: {
+    role: {
         type: Sequelize.STRING
     }
 

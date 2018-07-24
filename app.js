@@ -1,20 +1,24 @@
-var connection = require('./db/sql');
+//var connection = require('./db/sql');
 var Sequelize = require('sequelize');
-var passport = require('passport');
-var LocalStrategy=require('passport-local').Strategy;
+//var passport = require('passport');
+//var LocalStrategy=require('passport-local').Strategy;
 //const User = require('./db/user');
 var express=require('express');//подключаем express
 var bodyParser = require('body-parser');//подключаем body-parser
 var cookieParser = require('cookie-parser');//подключаем cookie
 var session = require('express-session');//session
 //var path=require('path');
-var HttpError = require('http-errors');
+//var HttpError = require('http-errors');
 var expressValidator = require('express-validator');
 //var exphbs  = require('express-handlebars');
 var fs=require('fs');
+var dotenv = require('dotenv'); 
 var formidable = require('formidable'),
     http = require('http'),
     util = require('util');
+
+dotenv.config();
+
 var userName=false;
 
 //routes
@@ -75,7 +79,7 @@ app.set('view engine', 'ejs');//какой шаблонизатор исполь
 
 app.use('/public', express.static('public'));//подключаем статические переменные, находятся в папке public, ссылка /public
 
-require('./db/passport')(passport);
+//require('./db/passport')(passport);
 
 
 app.listen(3500);//порт, который слушаем

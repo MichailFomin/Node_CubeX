@@ -1,23 +1,35 @@
 const Sequelize = require('sequelize');
-const connection = require('./sql');
-var model = require('./sql-model');
 
-var bcrypt=require('bcryptjs');
-
-var User = model.define('users', {
+module.exports = (sequelize, DataTypes) => {  
+  const User = sequelize.define('users', {
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false
+    },
     name: {
-        type: Sequelize.STRING
+      type: DataTypes.STRING,
+      required: true
     },
     email: {
-        type: Sequelize.STRING
+      type: DataTypes.STRING,
+      required: true
     },
     password: {
-        type: Sequelize.STRING
+      type: DataTypes.STRING,
+      required: true
     },
     role: {
-        type: Sequelize.STRING
-    }
-
-}, {timestamps: false});
-
-module.exports = User;
+      type: DataTypes.STRING,
+      required: true
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    updated_at:  DataTypes.DATE
+   
+  }, {underscored: true});
+  return User;
+};
