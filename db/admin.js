@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-//var model = require('./db');
 
 module.exports = (sequelize, DataTypes) => {  
   const Admin = sequelize.define('contents', {
@@ -34,27 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     updated_at:  DataTypes.DATE
-    
+
   }, {underscored: true});
   return Admin;
 };
-
-// var Admin = model.define('contents', {
-//     name: {
-//         type: Sequelize.STRING
-//     },
-//     description: {
-//         type: Sequelize.STRING
-//     },
-//     price: {
-//         type: Sequelize.FLOAT
-//     },
-//     presence: {
-//         type: Sequelize.STRING
-//     },
-//     img: {
-//         type: Sequelize.STRING
-//     }
-// }, {timestamps: false});
-
-// module.exports = Admin;
