@@ -15,7 +15,9 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+          <% if(userName != false){%>
           <a class="nav-item nav-link" href="/sold_goods">Sold goods</a>
+          <%}%>
           <% if(userRole == 'admin'){%>
             <a class="nav-item nav-link" href="/admin">Admin</a>
           <%}%>

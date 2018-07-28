@@ -1,0 +1,23 @@
+<% include blocks/header.ejs %>
+<h1>Sold goods</h1>
+<% if(typeof resObj == 'object' && resObj){%>
+	<% if(userName != false){%>
+    <div class="container">
+        <div class="row ">
+        <% resObj.forEach(function(resObj){ %>
+            <% resObj.sold_goods.forEach(function(sold_goods){ %>
+              	<div class="col-md-5 content">
+              		<p>Product: <%=sold_goods.content_name %></p>
+               		<p>Price: <%=sold_goods.content_price %>$</p>
+               		<p>Buyer: <%=resObj.name %></p>
+           		</div>
+            <% }) %>         
+        <% }) %>
+        </div>
+    </div> 
+    <%}else{%>
+		<h3>You are not allowed to view this page, sign in </h3>
+	<%}%>
+<%}%>
+
+<% include blocks/footer.ejs %>

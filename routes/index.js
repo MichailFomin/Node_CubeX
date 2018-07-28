@@ -27,12 +27,20 @@ router.post('/',function (req,res) {
     var id =  req.body.content_id;
     req.session.content_id = id;
     res.redirect('/cart');
-    console.log(req.session);
+    // console.log(req.session);
 
 });
 
+//delete content
+router.post('/del',function (req,res) {
+    var id =  req.body.content_id;
+    db.contents.destroy({ where: { id: id } }).then((contents) => {});
+    res.redirect('/');
+});
+
 //sold_goods
-router.get('/sold_goods', (req, res) => {  
+router.get('/sold_goods', (req, res) => { 
+
     db.users.findAll({
       include: [
         {
@@ -63,9 +71,13 @@ router.get('/sold_goods', (req, res) => {
           }
         )
       });
-      
-      res.json(resObj);
 
+      req.session.user ? res.render('sold_goods',{userName:req.session.user,userRole:req.session.role,resObj: resObj}) :
+      res.render('sold_goods', {
+            resObj: resObj,
+            userName,userRole
+
+        });
     });
   });
 

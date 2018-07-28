@@ -1,4 +1,3 @@
-
 <% include blocks/header.ejs %>
 <h1>Home</h1>
 <% if(typeof content == 'object' && content){%>
@@ -10,10 +9,16 @@
                <img src="../public/img/<%=content.img %>" alt="" width="100">
                <p><%=content.description %></p>
                <p><%=content.price %>$</p>
-           <% if(userName != false){%>
+           <% if(userRole == 'user'){%>
                <form   action="/" method="post" >
                  <input hidden type="text" name="content_id" value="<%=content.id %>">
                  <input type="submit" class="btn btn-secondary " name='add' value='Add to cart'>
+               </form>
+           <%}%>
+           <%if(userRole == 'admin'){%>
+                <form   action="/del" method="post" >
+                 <input hidden type="text" name="content_id" value="<%=content.id %>">
+                 <input type="submit" class="btn btn-secondary " name='add' value='Delete'>
                </form>
            <%}%>
            </div>
