@@ -19,7 +19,10 @@ exports.up = function(db) {
         id: { type: 'int', primaryKey: true, autoIncrement: true },
         content_id: 'int',
         user_id: 'int',
-        createdAt:'timestamp'
+        content_name:'string',
+        content_price:'float',
+        created_at:'date',
+        updated_at:'date'
     });
 };
 

@@ -47,26 +47,7 @@ router.post('/admin',function (req,res) { //маршрутизация на regi
             'price':fields.price, 'img':files.img.name,'presence':'yes' }).then((contents) => {
              
           });
-            //
-            // var name =  fields.name;
-            // var description =  fields.description;
-            // var price =  fields.price;
-            // var img =  files.img.name;
-            // let content = new Admin();
-            // //let user = db.users.findOne
-            //      content.name =  fields.name;
-            //      content.description =  fields.description;
-            //      content.price =  fields.price;
-            //      content.img =  files.img.name;
-            //      content.presence='yes';
-            //      content.save();
-            //res.redirect('/');
-            // res.render('admin', {
-            //
-            //     userName,userRole
-            //
-            // });
-
+            
             form.on('error', function(err) {
                 console.log(err);
             });

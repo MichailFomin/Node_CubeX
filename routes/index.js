@@ -11,7 +11,6 @@ var userRole=false;
 
 //homepage
 router.get('/',function (req,res) {
-    //let user = db.users.findOne({ where:{'email' : req.body.email}}).then(user=>{
     var content = db.contents.findAll().then(content=> {
         req.session.user ? res.render('index',{userName:req.session.user,userRole:req.session.role,content: content}) :
         res.render('index', {
@@ -37,55 +36,27 @@ router.get('/sold_goods', (req, res) => {
     db.users.findAll({
       include: [
         {
-          model: db.sold_goods,
-          include: [
-            {
-              model: db.contents
-            }
-          ]
+          model: db.sold_goods,//подключаем модель sold_goods, проданные товары
         }
       ] 
      
     }).then(users => {
-        
+        //берем с таблицы users данные
       const resObj = users.map(user => {
 
-        //tidy up the user data
         return Object.assign(
           {},
           {
             user_id: user.id,
             name: user.name,
-            //content_id: sold_good.content_id,
-            sold_goods: user.sold_goods.map(sold_good => {
-
-              //tidy up the post data
+            sold_goods: user.sold_goods.map(sold_good => { //через связь с таблицей sold_goods достаем данные о проданных товарах
               return Object.assign(
                 {},
                {
                   user_id: sold_good.user_id,
                   content_id: sold_good.content_id,
-                  
-
-
-
-                                      // contents: sold_good.contents.map(content => {
-
-                                      //   //tidy up the comment data
-                                      //   return Object.assign(
-                                      //     {},
-                                      //     {
-                                      //       content_id: content.id,
-                                      //       name: content.name,
-                                      //       description: content.description,
-                                      //       img: content.img,
-                                      //       //content: comment.content
-                                      //     }
-                                      //    )
-                                      //  })
-
-
-
+                  content_name: sold_good.content_name,
+                  content_price: sold_good.content_price,
                }
                )
             })
@@ -93,27 +64,15 @@ router.get('/sold_goods', (req, res) => {
         )
       });
       
-      //console.log(sold_goods);
       res.json(resObj);
 
     });
   });
 
-// router.get('/sold_goods', function(req, res){ //просмотр страницы одного товара,поиск по id
-//     var content = Sold_good.findAll().then(content=> {
-//         req.session.user ? res.render('sold_goods',{userName:req.session.user,userRole:req.session.role,content: content}) :
-//             res.render('sold_goods', {
-//                 content: content,
-//                 userName,userRole
-
-//             });
-//     });
-// });
 
 //cart
 router.get('/cart',function (req,res) {
     var cart = db.contents.findOne({ where:{'id' : req.session.content_id}}).then(content=> {
-        //console.log(content.dataValues);
         req.session.user ? res.render('cart',{userName:req.session.user,userRole:req.session.role,content: content}) :
             res.render('cart', {
                 content: content,
@@ -132,12 +91,11 @@ router.post('/cart/delete',function (req,res) {
 
 });
 
-//Buy content
+//Buy content in cart
 router.post('/cart/buy',function (req,res) {
 
-    var content_id =  req.body.content_id;
     var user_id =  req.session.user_id;
-    db.sold_goods.create({'content_id' : req.body.content_id, 'user_id':user_id}).then((sold_goods) => {
+    db.sold_goods.create({'content_id' : req.body.content_id,'content_name':req.body.content_name,'content_price':req.body.content_price, 'user_id':user_id}).then((sold_goods) => {
            
         });
    

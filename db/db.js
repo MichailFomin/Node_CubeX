@@ -26,14 +26,9 @@ db.contents = require('./admin.js')(sequelize, Sequelize);
 db.sold_goods = require('./sold_good.js')(sequelize, Sequelize);
 
 //Relations
-// 
 db.sold_goods.belongsTo(db.users);
 db.sold_goods.belongsTo(db.contents);
 db.users.hasMany(db.sold_goods);
-db.contents.hasMany(db.sold_goods);
-// db.comments.belongsTo(db.posts);  
-// db.posts.hasMany(db.comments);  
-// db.posts.belongsTo(db.users);  
-// db.users.hasMany(db.posts);
+
 
 module.exports = db;  

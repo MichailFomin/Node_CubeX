@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       required: true
     },
+    content_name: {
+      type: DataTypes.STRING,
+      required: true
+    },
+    content_price: {
+      type: DataTypes.FLOAT,
+      required: true
+    },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false

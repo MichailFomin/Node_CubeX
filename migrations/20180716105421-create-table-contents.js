@@ -22,8 +22,8 @@ exports.up = function(db) {
         img: 'string',
         price: 'float',
         presence: 'string',
-        createdAt:'timestamp',
-        updatedAt:'date'
+        created_at:'date',
+        updated_at:'date'
     });
 
 };

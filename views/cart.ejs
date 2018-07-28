@@ -19,17 +19,20 @@
           <td><%=content.description %></td>
           <td><%=content.price %>$</td>
           <td>
+          <form   action="/cart/Buy" method="post" >
+            <input hidden type="text" name="content_name" value="<%=content.name %>">
+            <input hidden type="text" name="content_price" value="<%=content.price %>">
+            <input hidden type="text" name="content_id" value="<%=content.id %>">
+            <input type="submit" class="btn btn-secondary " name='Buy' value='Buy'>
+          </form>
+          </td>
+          <td>
             <form   action="/cart/delete" method="post" >
               <input hidden type="text" name="content_id" value="<%=content.id %>">
               <input type="submit" class="btn btn-secondary " name='delete' value='delete'>
             </form>
           </td>
-          <td>
-          <form   action="/cart/Buy" method="post" >
-            <input hidden type="text" name="content_id" value="<%=content.id %>">
-            <input type="submit" class="btn btn-secondary " name='Buy' value='Buy'>
-          </form>
-          </td>
+          
         </tr>
       </tbody>
     </table>

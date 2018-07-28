@@ -22,7 +22,8 @@ exports.up = function(db) {
         password: 'string',
         tocen: 'string',
         role: 'string',
-        createdAt:'timestamp'
+        created_at:'date',
+        updated_at:'date'
     });
 
 };

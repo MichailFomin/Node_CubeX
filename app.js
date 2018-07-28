@@ -1,4 +1,3 @@
-//var connection = require('./db/sql');
 var Sequelize = require('sequelize');
 //var passport = require('passport');
 //var LocalStrategy=require('passport-local').Strategy;
