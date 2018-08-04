@@ -6,6 +6,17 @@ var Admin=require('../db/admin');
 var User=require('../db/user');
 var db = require('../db/db');
 var Sold_good=require('../db/sold_good');
+
+const dotenv = require('dotenv'); 
+var stripe = require("stripe")("pk_test_w3CAIc7zrNuYK9Qud0NE7FMH");
+var customer = stripe.customers.create(
+  { email: 'vera.kopylchuk@gmail.com' },
+  function(err, customer) {
+    err; // null if no error occurred
+    customer; // the created customer object
+  }
+);
+
 var userName=false;
 var userRole=false;
 
@@ -95,6 +106,7 @@ router.get('/cart',function (req,res) {
 
 });
 
+
 //del from cart
 router.post('/cart/delete',function (req,res) {
     delete req.session['content_id'];
@@ -104,20 +116,43 @@ router.post('/cart/delete',function (req,res) {
 });
 
 //Buy content in cart
-router.post('/cart/buy',function (req,res) {
+// router.post('/cart/buy',function (req,res) {
 
-    var user_id =  req.session.user_id;
-    db.sold_goods.create({'content_id' : req.body.content_id,'content_name':req.body.content_name,'content_price':req.body.content_price, 'user_id':user_id}).then((sold_goods) => {
+//     var user_id =  req.session.user_id;
+//     db.sold_goods.create({'content_id' : req.body.content_id,'content_name':req.body.content_name,'content_price':req.body.content_price, 'user_id':user_id}).then((sold_goods) => {
+           
+//         });
+   
+//      delete req.session['content_id']; 
+//     res.redirect('/');
+//     console.log(req.session);
+
+// });
+
+router.post('/cart/charge',function (req,res) {
+  var token=req.body.stripeToken;
+  var chargeAmount=req.body.chargeAmount;
+  var content_id= req.body.content_id;
+  console.log(chargeAmount);
+  var charge=stripe.charges.create({
+    amount:chargeAmount,
+    currency:"gbp",
+    source:token
+  }, function(err, charge){
+    if(err & err.type==="StripeCardError"){
+      console.log("Your card was decliend");
+    }
+  });
+  var user_id =  req.session.user_id;
+  
+    db.sold_goods.create({'content_id' : content_id,'content_name':req.body.content_name,'content_price':req.body.content_price, 'user_id':user_id}).then((sold_goods) => {
            
         });
    
      delete req.session['content_id']; 
-    res.redirect('/');
-    console.log(req.session);
-
+  console.log("Your paymet was successful");
+  res.redirect('/');
 });
-
-
 
 
 module.exports = router;

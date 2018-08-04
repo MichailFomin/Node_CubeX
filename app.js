@@ -12,9 +12,6 @@ var expressValidator = require('express-validator');
 //var exphbs  = require('express-handlebars');
 var fs=require('fs');
 var dotenv = require('dotenv'); 
-var formidable = require('formidable'),
-    http = require('http'),
-    util = require('util');
 
 dotenv.config();
 
